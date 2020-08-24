@@ -59,8 +59,8 @@ class UserListBehaviour : AbstractBehaviour(true) {
                                         userService.getAll()
                                                 .toList()
                                                 .map {
-                                                    arrayListOf(userDeleteBehaviour.createBtn(it.name, it.id.toString())).toTypedArray()
-                                                }.toTypedArray()
+                                                    userDeleteBehaviour.createBtn(it.name, it.id.toString())
+                                                }.chunked(4).map { it.toTypedArray() }.toTypedArray()
 
                                 )
 

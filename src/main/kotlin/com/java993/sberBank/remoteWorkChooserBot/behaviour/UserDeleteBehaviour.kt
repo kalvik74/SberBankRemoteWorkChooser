@@ -31,13 +31,13 @@ class UserDeleteBehaviour : AbstractCallbackBehaviour("deleteUser") {
         telegramSender.executeMethod(
                 DeleteMessageRequest(
                         chatId = callbackQuery?.message?.chat?.id!!,
-                        messageId = callbackQuery?.message?.messageId!!
+                        messageId = callbackQuery.message?.messageId!!
 
                 )
         )
         telegramSender.executeMethod(
                 SendMessageRequest(
-                        chatId = callbackQuery?.message?.chat?.id!!,
+                        chatId = callbackQuery.message?.chat?.id!!,
                         text = "user with id=${value} was deleted"
                 )
         )

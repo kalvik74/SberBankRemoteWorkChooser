@@ -67,7 +67,7 @@ class UserAddBehaviour : AbstractBehaviour(true) {
             }
 
             update.message?.text?.startsWith("/")!! -> {
-                addState.remove(update?.message?.from?.id);
+                addState.remove(update.message?.from?.id);
             }
         }
 

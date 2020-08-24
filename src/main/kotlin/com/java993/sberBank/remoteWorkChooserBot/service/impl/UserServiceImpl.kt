@@ -15,7 +15,7 @@ class UserServiceImpl : UserService {
 
     override fun getAll(): List<User> {
         return userRepository
-                .findAllOrOrderByNameAsc()
+                .findAllOrderByNameAsc()
                 .map { User(it) }
                 .toList()
     }

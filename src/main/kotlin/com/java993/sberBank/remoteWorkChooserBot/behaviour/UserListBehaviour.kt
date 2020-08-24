@@ -56,12 +56,12 @@ class UserListBehaviour : AbstractBehaviour(true) {
                                 text = "Choose User to delete \n\n",
                                 parseMode = ParseMode.MARKDOWN_V2,
                                 replyMarkup = InlineKeyboard(
-                                        *(userService.getAll()
+                                        userService.getAll()
                                                 .toList()
                                                 .map {
-                                                    userDeleteBehaviour.createBtn(it.name, it.id.toString())
-                                                }
-                                                .toTypedArray())
+                                                    arrayListOf(userDeleteBehaviour.createBtn(it.name, it.id.toString())).toTypedArray()
+                                                }.toTypedArray()
+
                                 )
 
                         )

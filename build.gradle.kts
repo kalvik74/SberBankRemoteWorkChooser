@@ -49,4 +49,8 @@ tasks {
         useJUnitPlatform()
         systemProperty("telegram.bot.token", "111")
     }
+    jar {
+        enabled = true
+    }
+
 }

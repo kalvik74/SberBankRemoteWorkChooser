@@ -14,11 +14,11 @@ class UserRepositoryTest @Autowired constructor(
 
     @Test
     fun `When findById then return UserEntity`() {
-        val user = UserEntity(name = "John", remoteWorkCount = 0);
+        val user = UserEntity(name = "John");
         entityManager.persist(user)
         entityManager.flush()
 
-        val found = userRepository.findById(user.id!!)
+        val found = userRepository.findById(user.id)
         assertThat(found.get()).isEqualTo(user)
     }
 
@@ -31,9 +31,9 @@ class UserRepositoryTest @Autowired constructor(
 
     @Test
     fun `When findAll then return 2 users`() {
-        val user1 = UserEntity(name = "John", remoteWorkCount = 0);
+        val user1 = UserEntity(name = "John");
         entityManager.persist(user1)
-        val user2 = UserEntity(name = "John", remoteWorkCount = 0);
+        val user2 = UserEntity(name = "John");
         entityManager.persist(user2)
         entityManager.flush()
 

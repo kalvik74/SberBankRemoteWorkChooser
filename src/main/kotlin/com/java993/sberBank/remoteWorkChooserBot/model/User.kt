@@ -1,7 +1,7 @@
 package com.java993.sberBank.remoteWorkChooserBot.model
 
 data class User(
-        val id: Long,
+        val id: Long = 0,
         val name: String,
-        val remoteWorkCount: Long = 0
+        val alreadyWasChosen: Boolean = false
 )

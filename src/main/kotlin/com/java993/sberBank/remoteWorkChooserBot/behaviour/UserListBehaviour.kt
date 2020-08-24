@@ -38,7 +38,7 @@ class UserListBehaviour : AbstractBehaviour(true) {
                 telegramSender.executeMethod(
                         SendMessageRequest(
                                 chatId = message.chat.id,
-                                text = userService.getAll().map { user -> "*${user.id}* ${user.name}" }.joinToString(
+                                text = userService.getAll().map { user -> "${user.name}" }.joinToString(
                                         prefix = "*Users:* \n",
                                         separator = "\n",
                                         postfix = "\n\nalso available /delete and /add commands"
@@ -56,12 +56,12 @@ class UserListBehaviour : AbstractBehaviour(true) {
                                 text = "Choose User to delete \n\n",
                                 parseMode = ParseMode.MARKDOWN_V2,
                                 replyMarkup = InlineKeyboard(
-                                        *userService.getAll()
+                                        *(userService.getAll()
                                                 .toList()
                                                 .map {
                                                     userDeleteBehaviour.createBtn(it.name, it.id.toString())
                                                 }
-                                                .toTypedArray()
+                                                .toTypedArray())
                                 )
 
                         )

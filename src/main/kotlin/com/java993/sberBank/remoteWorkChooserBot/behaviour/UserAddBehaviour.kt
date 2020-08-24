@@ -34,6 +34,7 @@ class UserAddBehaviour : AbstractBehaviour(true) {
 
 
     override fun parse(update: Update) {
+        logger.info("update received ${update}")
         when {
 
             update.message?.text?.startsWith("/add") == true -> {

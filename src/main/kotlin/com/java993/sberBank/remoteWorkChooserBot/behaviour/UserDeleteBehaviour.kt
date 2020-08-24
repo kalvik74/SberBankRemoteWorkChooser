@@ -3,6 +3,7 @@ package com.java993.sberBank.remoteWorkChooserBot.behaviour
 import com.java993.sberBank.remoteWorkChooserBot.service.UserService
 import org.artfable.telegram.api.AbstractCallbackBehaviour
 import org.artfable.telegram.api.CallbackQuery
+import org.artfable.telegram.api.ParseMode
 import org.artfable.telegram.api.request.DeleteMessageRequest
 import org.artfable.telegram.api.request.SendMessageRequest
 import org.artfable.telegram.api.service.TelegramSender
@@ -39,7 +40,9 @@ class UserDeleteBehaviour : AbstractCallbackBehaviour("deleteUser") {
             telegramSender.executeMethod(
                     SendMessageRequest(
                             chatId = callbackQuery.message?.chat?.id!!,
-                            text = "user with id=${it.get().name} was deleted"
+                            text = "user *${it.get().name}* was deleted",
+                            parseMode = ParseMode.MARKDOWN_V2
+
                     )
             )
         }

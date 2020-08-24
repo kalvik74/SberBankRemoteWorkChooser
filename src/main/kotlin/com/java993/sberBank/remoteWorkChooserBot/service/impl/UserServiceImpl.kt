@@ -6,6 +6,7 @@ import com.java993.sberBank.remoteWorkChooserBot.model.User
 import com.java993.sberBank.remoteWorkChooserBot.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.util.*
 import kotlin.random.Random.Default.nextInt
 
 @Service
@@ -19,6 +20,8 @@ class UserServiceImpl : UserService {
                 .map { User(it) }
                 .toList()
     }
+
+    override fun getById(id: Long): Optional<UserEntity> = userRepository.findById(id)
 
     override fun create(user: User) {
         userRepository.save(UserEntity(name = user.name, alreadyWasChosen = user.alreadyWasChosen))

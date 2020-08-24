@@ -5,3 +5,7 @@ server:
 logging:
   level:
     com.java993: INFO
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update

@@ -23,10 +23,9 @@ internal class UserServiceImplTest @Autowired constructor(
     fun nextRemoteWorkers_20_users_4_runs() {
         for(i in 1..20) userService.create(User(name = "User_${i}"))
 
-        val userSet = mutableSetOf<User>()
-        for (i in 1..4) userSet += userService.nextRemoteWorkers(5)
-
-        Assertions.assertThat(userSet.size).isEqualTo(20)
+        val users = mutableListOf<User>()
+        for (i in 1..4) users += userService.nextRemoteWorkers(5)
+        Assertions.assertThat(users.size).isEqualTo(20)
     }
 
     @Test

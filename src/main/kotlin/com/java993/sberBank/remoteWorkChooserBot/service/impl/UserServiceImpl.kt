@@ -57,7 +57,7 @@ class UserServiceImpl : UserService {
                 }
 
                 for (i in 1..(count - lastNotChosenUsers.size)) {
-                    val randomIndex: Int = nextInt(0, newCandidates.size - 1)
+                    val randomIndex: Int = nextInt(0, newCandidates.size)
                     lastNotChosenUsers += newCandidates.removeAt(randomIndex);
                 }
                 lastNotChosenUsers.map {

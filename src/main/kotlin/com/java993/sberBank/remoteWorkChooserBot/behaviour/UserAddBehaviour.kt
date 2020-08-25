@@ -60,7 +60,7 @@ class UserAddBehaviour : AbstractBehaviour(true) {
                     telegramSender.executeMethod<Message>(
                             SendMessageRequest(
                                     chatId = message.chat.id,
-                                    text = "user *${userAndWorksCount?.get(0)}* added",
+                                    text = "user \"${userAndWorksCount?.get(0)}\" added",
                                     parseMode = ParseMode.MARKDOWN_V2
                             )
                     )

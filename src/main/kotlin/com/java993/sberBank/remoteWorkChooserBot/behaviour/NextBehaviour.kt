@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
-class NextBehaviour: AbstractBehaviour(true) {
+class NextBehaviour : AbstractBehaviour(true) {
 
     @Autowired
     private lateinit var telegramSender: TelegramSender;
@@ -30,12 +30,11 @@ class NextBehaviour: AbstractBehaviour(true) {
                         SendMessageRequest(
                                 chatId = message.chat.id,
                                 text = userService.nextRemoteWorkers(5).map { user -> "${user.name}" }.joinToString(
-                                        prefix = "*Our winners :* \n\n",
+                                        prefix = "Our winners : \n\n",
                                         separator = "\n"
-                                ),
-                                parseMode = ParseMode.MARKDOWN_V2,
-
                                 )
+
+                        )
                 )
             }
         }

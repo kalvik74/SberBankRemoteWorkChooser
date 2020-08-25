@@ -40,8 +40,7 @@ class UserDeleteBehaviour : AbstractCallbackBehaviour("deleteUser") {
             telegramSender.executeMethod(
                     SendMessageRequest(
                             chatId = callbackQuery.message?.chat?.id!!,
-                            text = "user *${it.get().name}* was deleted",
-                            parseMode = ParseMode.MARKDOWN_V2
+                            text = "user \"${it.get().name}\" was deleted"
 
                     )
             )

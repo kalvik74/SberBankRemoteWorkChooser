@@ -39,13 +39,12 @@ class UserListBehaviour : AbstractBehaviour(true) {
                         SendMessageRequest(
                                 chatId = message.chat.id,
                                 text = userService.getAll().map { user -> "${user.name}" }.joinToString(
-                                        prefix = "*Users:* \n",
+                                        prefix = "Users: \n",
                                         separator = "\n",
                                         postfix = "\n\nalso available /delete and /add commands"
-                                ),
-                                parseMode = ParseMode.MARKDOWN_V2,
-
                                 )
+
+                        )
                 )
             }
             update.message?.text?.startsWith("/delete") == true -> {
@@ -54,7 +53,6 @@ class UserListBehaviour : AbstractBehaviour(true) {
                         SendMessageRequest(
                                 chatId = message.chat.id,
                                 text = "Choose User to delete \n\n",
-                                parseMode = ParseMode.MARKDOWN_V2,
                                 replyMarkup = InlineKeyboard(
                                         userService.getAll()
                                                 .toList()

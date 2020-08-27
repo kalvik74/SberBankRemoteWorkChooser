@@ -1,5 +1,6 @@
 package com.java993.sberBank.remoteWorkChooserBot.service.impl
 
+import com.java993.sberBank.remoteWorkChooserBot.dao.entity.UserEntity
 import com.java993.sberBank.remoteWorkChooserBot.model.User
 import com.java993.sberBank.remoteWorkChooserBot.service.UserService
 import org.assertj.core.api.Assertions
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager
 import org.springframework.boot.test.context.SpringBootTest
 import java.lang.IllegalStateException
 
@@ -75,5 +77,15 @@ internal class UserServiceImplTest @Autowired constructor(
         assertThrows(IllegalStateException::class.java){
             userService.create(User(name = "user"))
         }
+    }
+
+    @Test
+    fun `When getAll then return 2 users`() {
+        Assertions.assertThat(userService.getAll().size).isEqualTo(0)
+
+        userService.create(User(name = "John1"))
+        userService.create(User(name = "John2"))
+
+        Assertions.assertThat(userService.getAll().size).isEqualTo(2)
     }
 }

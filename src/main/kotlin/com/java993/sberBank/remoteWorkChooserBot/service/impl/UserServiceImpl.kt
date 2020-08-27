@@ -24,6 +24,9 @@ class UserServiceImpl : UserService {
     override fun getById(id: Long): Optional<UserEntity> = userRepository.findById(id)
 
     override fun create(user: User) {
+        if (userRepository.existsByNameIgnoreCase(user.name)) {
+            throw IllegalStateException("user ${user.name} already exists")
+        }
         userRepository.save(UserEntity(name = user.name, alreadyWasChosen = user.alreadyWasChosen))
     }
 

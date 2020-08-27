@@ -29,9 +29,6 @@ class UserAddBehaviour : AbstractBehaviour(true) {
     //TODO make tread-safe it
     val addState = mutableSetOf<Long>()
 
-    override fun start() {
-    }
-
 
     override fun parse(update: Update) {
         logger.info("update received ${update}")
@@ -56,12 +53,15 @@ class UserAddBehaviour : AbstractBehaviour(true) {
                 message.text?.let {
                     User(name = it)
                 }?.let {
-                    userService.create(it)
                     telegramSender.executeMethod<Message>(
                             SendMessageRequest(
                                     chatId = message.chat.id,
-                                    text = "user \"${userAndWorksCount?.get(0)}\" added",
-                                    parseMode = ParseMode.MARKDOWN_V2
+                                    text = try {
+                                        userService.create(it)
+                                        "user \"${userAndWorksCount?.get(0)}\" added"
+                                    } catch (e: Exception){
+                                        e.message ?: "Error creating user"
+                                    }
                             )
                     )
                 }

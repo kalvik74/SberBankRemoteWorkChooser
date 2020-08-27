@@ -41,6 +41,18 @@ class UserRepositoryTest @Autowired constructor(
         assertThat(found.count()).isEqualTo(2)
     }
 
+    @Test
+    fun `When existsByName then return true and false`() {
+        val user1 = UserEntity(name = "John1");
+        entityManager.persist(user1)
+        entityManager.flush()
+
+        assertThat(userRepository.existsByNameIgnoreCase("John1")).isTrue
+        assertThat(userRepository.existsByNameIgnoreCase("john1")).isTrue
+        assertThat(userRepository.existsByNameIgnoreCase("John2")).isFalse
+    }
+
+
 
 
 }

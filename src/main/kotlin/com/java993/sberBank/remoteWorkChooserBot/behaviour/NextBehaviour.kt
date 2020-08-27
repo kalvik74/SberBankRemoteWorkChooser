@@ -18,10 +18,6 @@ class NextBehaviour : AbstractBehaviour(true) {
     @Autowired
     private lateinit var userService: UserService;
 
-    override fun start() {
-
-    }
-
     override fun parse(update: Update?) {
         when {
             update?.message?.text?.startsWith("/next") == true -> {

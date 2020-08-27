@@ -11,10 +11,9 @@ import org.springframework.stereotype.Component
 
 @Component
 class RemoteWorkChooserBot @Autowired constructor(
-        @Value("\${telegram.bot.token}") token: String,
         userListBehaviour: UserListBehaviour,
         userAddBehaviour: UserAddBehaviour,
         userDeleteBehaviour: UserDeleteBehaviour,
         nextBehaviour: NextBehaviour
 )
-    : LongPollingTelegramBot(token, setOf(userListBehaviour, userAddBehaviour, nextBehaviour), setOf(userDeleteBehaviour))
+    : LongPollingTelegramBot(setOf(userListBehaviour, userAddBehaviour, nextBehaviour), setOf(userDeleteBehaviour))

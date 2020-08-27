@@ -27,10 +27,6 @@ class UserListBehaviour : AbstractBehaviour(true) {
     @Autowired
     private lateinit var telegramSender: TelegramSender
 
-
-    override fun start() {
-    }
-
     override fun parse(update: Update) {
         when {
             update.message?.text?.startsWith("/users") == true -> {

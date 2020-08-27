@@ -7,4 +7,5 @@ interface UserRepository : CrudRepository<UserEntity, Long> {
     fun countByAlreadyWasChosen(alreadyWasChosen: Boolean): Long
     fun findByAlreadyWasChosen(alreadyWasChosen: Boolean): List<UserEntity>
     fun findByOrderByNameAsc(): List<UserEntity>
+    fun existsByNameIgnoreCase(name: String): Boolean
 }

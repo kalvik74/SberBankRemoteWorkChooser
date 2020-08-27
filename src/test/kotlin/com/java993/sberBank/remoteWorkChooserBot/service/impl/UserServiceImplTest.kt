@@ -4,10 +4,12 @@ import com.java993.sberBank.remoteWorkChooserBot.model.User
 import com.java993.sberBank.remoteWorkChooserBot.service.UserService
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import java.lang.IllegalStateException
 
 @SpringBootTest
 internal class UserServiceImplTest @Autowired constructor(
@@ -20,7 +22,7 @@ internal class UserServiceImplTest @Autowired constructor(
     }
 
     @Test
-    fun nextRemoteWorkers_20_users_4_runs() {
+    fun `When nextRemoteWorkers runs 4 times with 20 users then return 20 users`() {
         for(i in 1..20) userService.create(User(name = "User_${i}"))
 
         val users = mutableListOf<User>()
@@ -29,7 +31,7 @@ internal class UserServiceImplTest @Autowired constructor(
     }
 
     @Test
-    fun nextRemoteWorkers_20_users_2_runs() {
+    fun `When nextRemoteWorkers runs 2 times with 20 users then return 10 users`() {
         for(i in 1..20) userService.create(User(name = "User_${i}"))
 
         val userSet = mutableSetOf<User>()
@@ -39,7 +41,7 @@ internal class UserServiceImplTest @Autowired constructor(
     }
 
     @Test
-    fun nextRemoteWorkers_3_users_5_runs() {
+    fun `When nextRemoteWorkers runs 5 times with 3 users then return 3 users`() {
         for(i in 1..3) userService.create(User(name = "User_${i}"))
 
         val userSet = mutableSetOf<User>()
@@ -49,12 +51,29 @@ internal class UserServiceImplTest @Autowired constructor(
     }
 
     @Test
-    fun nextRemoteWorkers_5_users_5_runs() {
+    fun `When nextRemoteWorkers runs 5 times with 5 users then return 5 users`() {
         for(i in 1..5) userService.create(User(name = "User_${i}"))
 
         val userSet = mutableSetOf<User>()
         for (i in 1..5) userSet += userService.nextRemoteWorkers(5)
 
         Assertions.assertThat(userSet.size).isEqualTo(5)
+    }
+
+
+    @Test
+    fun `When create 2 users with same names then return exception`() {
+        userService.create(User(name = "User"))
+        assertThrows(IllegalStateException::class.java){
+            userService.create(User(name = "User"))
+        }
+    }
+
+    @Test
+    fun `When create 2 users with same names but different register then return exception`() {
+        userService.create(User(name = "User"))
+        assertThrows(IllegalStateException::class.java){
+            userService.create(User(name = "user"))
+        }
     }
 }

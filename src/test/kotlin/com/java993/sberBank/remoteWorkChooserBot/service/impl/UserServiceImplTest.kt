@@ -88,4 +88,14 @@ internal class UserServiceImplTest @Autowired constructor(
 
         Assertions.assertThat(userService.getAll().size).isEqualTo(2)
     }
+
+    @Test
+    fun `When getById then return user`() {
+        Assertions.assertThat(userService.getAll().size).isEqualTo(0)
+
+        val user1 = userService.create(User(name = "John1"))
+        userService.create(User(name = "John2"))
+
+        Assertions.assertThat(userService.getById(user1.id).get()).isEqualTo(user1)
+    }
 }

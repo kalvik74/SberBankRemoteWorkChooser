@@ -28,8 +28,8 @@ class UserDeleteBehaviour : AbstractCallbackBehaviour("deleteUser") {
     override fun parse(value: String?, callbackQuery: CallbackQuery?) {
         value?.let {
             userService.getById(it.toLong())
-        }?.let {
-            userService.remove(it.get().id)
+        }?.let { user ->
+            userService.remove(user.get().id)
             telegramSender.executeMethod(
                     DeleteMessageRequest(
                             chatId = callbackQuery?.message?.chat?.id!!,
@@ -39,8 +39,8 @@ class UserDeleteBehaviour : AbstractCallbackBehaviour("deleteUser") {
             )
             telegramSender.executeMethod(
                     SendMessageRequest(
-                            chatId = callbackQuery.message?.chat?.id!!,
-                            text = "user \"${it.get().name}\" was deleted"
+                            chatId = callbackQuery.message?.chat?.id!!.toString(),
+                            text = "user \"${user.get().name}\" was deleted"
 
                     )
             )

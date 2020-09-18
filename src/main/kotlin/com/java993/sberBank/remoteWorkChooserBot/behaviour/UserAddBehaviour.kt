@@ -2,7 +2,7 @@ package com.java993.sberBank.remoteWorkChooserBot.behaviour
 
 import com.java993.sberBank.remoteWorkChooserBot.model.User
 import com.java993.sberBank.remoteWorkChooserBot.service.UserService
-import org.artfable.telegram.api.AbstractBehaviour
+import org.artfable.telegram.api.Behaviour
 import org.artfable.telegram.api.Message
 import org.artfable.telegram.api.ParseMode
 import org.artfable.telegram.api.Update
@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
-class UserAddBehaviour : AbstractBehaviour(true) {
+class UserAddBehaviour : Behaviour {
 
     companion object {
         private val logger: Logger = LoggerFactory.getLogger(UserDeleteBehaviour::class.java)
@@ -34,11 +34,12 @@ class UserAddBehaviour : AbstractBehaviour(true) {
         logger.info("update received ${update}")
         when {
 
+            //start adding process
             update.message?.text?.startsWith("/add") == true -> {
                 val message = update.extractMessage()!!
                 telegramSender.executeMethod<Message>(
                         SendMessageRequest(
-                                chatId = message.chat.id,
+                                chatId = message.chat.id.toString(),
                                 text = "Enter new user name",
                                 parseMode = ParseMode.MARKDOWN_V2
                         )
@@ -46,7 +47,13 @@ class UserAddBehaviour : AbstractBehaviour(true) {
                 message.from?.id?.let { addState.add(it) }
             }
 
-            addState.contains(update.message?.from?.id) && !update.message?.text?.startsWith("/")!! -> {
+            //delete remove state if user choose different command
+            update.message?.text?.startsWith("/")!! -> {
+                addState.remove(update.message?.from?.id);
+            }
+
+            //end adding process
+            addState.contains(update.message?.from?.id)  -> {
                 val message = update.extractMessage()!!
                 addState.remove(message.from?.id);
                 val userAndWorksCount = message.text?.split(";")?.map { it.trim() }?.toList()
@@ -55,7 +62,7 @@ class UserAddBehaviour : AbstractBehaviour(true) {
                 }?.let {
                     telegramSender.executeMethod<Message>(
                             SendMessageRequest(
-                                    chatId = message.chat.id,
+                                    chatId = message.chat.id.toString(),
                                     text = try {
                                         userService.create(it)
                                         "user \"${userAndWorksCount?.get(0)}\" added"
@@ -67,9 +74,6 @@ class UserAddBehaviour : AbstractBehaviour(true) {
                 }
             }
 
-            update.message?.text?.startsWith("/")!! -> {
-                addState.remove(update.message?.from?.id);
-            }
         }
 
     }

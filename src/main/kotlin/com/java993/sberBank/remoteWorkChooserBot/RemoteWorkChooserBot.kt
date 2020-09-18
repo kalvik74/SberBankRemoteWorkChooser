@@ -1,19 +1,16 @@
 package com.java993.sberBank.remoteWorkChooserBot
 
-import com.java993.sberBank.remoteWorkChooserBot.behaviour.NextBehaviour
-import com.java993.sberBank.remoteWorkChooserBot.behaviour.UserAddBehaviour
 import com.java993.sberBank.remoteWorkChooserBot.behaviour.UserDeleteBehaviour
-import com.java993.sberBank.remoteWorkChooserBot.behaviour.UserListBehaviour
+import org.artfable.telegram.api.Behaviour
 import org.artfable.telegram.api.LongPollingTelegramBot
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 
 @Component
 class RemoteWorkChooserBot @Autowired constructor(
-        userListBehaviour: UserListBehaviour,
-        userAddBehaviour: UserAddBehaviour,
+        userListBehaviour: Behaviour,
+        userAddBehaviour: Behaviour,
         userDeleteBehaviour: UserDeleteBehaviour,
-        nextBehaviour: NextBehaviour
+        nextBehaviour: Behaviour
 )
-    : LongPollingTelegramBot(setOf(userListBehaviour, userAddBehaviour, nextBehaviour), setOf(userDeleteBehaviour))
+    : LongPollingTelegramBot(mutableSetOf(userListBehaviour, userAddBehaviour, nextBehaviour), setOf(userDeleteBehaviour))

@@ -1,0 +1,14 @@
+[
+  {
+    "command": "users",
+    "description": "participants"
+  },
+  {
+    "command": "add",
+    "description": "add user"
+  },
+  {
+    "command": "next",
+    "description": "choose new remote workers"
+  }
+]

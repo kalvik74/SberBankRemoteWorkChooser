@@ -20,12 +20,21 @@ class NextBehaviour : Behaviour {
     override fun parse(update: Update?) {
         when {
             update?.message?.text?.startsWith("/next") == true -> {
+
                 val message = update.extractMessage()!!
                 telegramSender.executeMethod(
                         SendMessageRequest(
                                 chatId = message.chat.id.toString(),
+                                text = "Кручу-верчу обмануть хочу........"
+
+                        )
+                )
+                Thread.sleep(2000)
+                telegramSender.executeMethod(
+                        SendMessageRequest(
+                                chatId = message.chat.id.toString(),
                                 text = userService.nextRemoteWorkers(5).map { user -> "${user.name}" }.joinToString(
-                                        prefix = "Our winners : \n\n",
+                                        prefix = "Наши победители : \n\n",
                                         separator = "\n"
                                 )
 

@@ -33,7 +33,7 @@ class UserListBehaviour : Behaviour {
                 telegramSender.executeMethod(
                         SendMessageRequest(
                                 chatId = message.chat.id.toString(),
-                                text = userService.getAll().map { user -> "${user.name}" }.joinToString(
+                                text = userService.getAll().map { user -> "${user.name} - ${user.alreadyWasChosen}" }.joinToString(
                                         prefix = "Users: \n",
                                         separator = "\n",
                                         postfix = "\n\nalso available /delete and /add commands"

@@ -24,11 +24,21 @@ class NextBehaviour : Behaviour {
                 telegramSender.executeMethod(
                         SendMessageRequest(
                                 chatId = message.chat.id.toString(),
-                                text = userService.nextRemoteWorkers(1).map { user -> "${user.name}" }.joinToString(
+                                text = userService.nextRemoteWorkers(5).map { user -> "${user.name}" }.joinToString(
                                         prefix = "Our winners : \n\n",
                                         separator = "\n"
                                 )
 
+                        )
+                )
+            }
+            update?.message?.text?.startsWith("/reset") == true -> {
+                val message = update.extractMessage()!!
+                userService.resetAllResults()
+                telegramSender.executeMethod(
+                        SendMessageRequest(
+                                chatId = message.chat.id.toString(),
+                                text = "all results were reset"
                         )
                 )
             }

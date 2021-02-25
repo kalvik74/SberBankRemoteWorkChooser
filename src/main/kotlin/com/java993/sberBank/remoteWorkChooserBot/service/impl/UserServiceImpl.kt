@@ -75,6 +75,12 @@ class UserServiceImpl : UserService {
         }
     }
 
+    override fun resetAllResults() {
+        userRepository.findAll().forEach { user ->
+            userRepository.save(user.copy(alreadyWasChosen = false))
+        }
+    }
+
     fun User(entity: UserEntity): User = User(
             id = entity.id,
             name = entity.name,

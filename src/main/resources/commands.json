@@ -10,5 +10,9 @@
   {
     "command": "next",
     "description": "choose new remote workers"
+  },
+  {
+    "command": "reset",
+    "description": "reset all results"
   }
 ]

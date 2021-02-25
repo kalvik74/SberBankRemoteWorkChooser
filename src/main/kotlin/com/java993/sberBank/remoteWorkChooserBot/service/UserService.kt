@@ -9,4 +9,5 @@ interface UserService {
     fun create(user: User): User
     fun remove(id: Long)
     fun nextRemoteWorkers(count: Int): List<User>
+    fun resetAllResults()
 }

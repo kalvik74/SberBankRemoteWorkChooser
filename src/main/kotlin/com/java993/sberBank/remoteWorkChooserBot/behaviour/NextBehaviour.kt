@@ -33,7 +33,7 @@ class NextBehaviour : Behaviour {
                 telegramSender.executeMethod(
                         SendMessageRequest(
                                 chatId = message.chat.id.toString(),
-                                text = userService.nextRemoteWorkers(3).map { user -> "${user.name}" }.joinToString(
+                                text = userService.nextRemoteWorkers(1).map { user -> "${user.name}" }.joinToString(
                                         prefix = "Наши победители : \n\n",
                                         separator = "\n"
                                 )
